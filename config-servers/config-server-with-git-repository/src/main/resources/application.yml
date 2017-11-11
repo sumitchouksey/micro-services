@@ -1,0 +1,19 @@
+# -- BASIC CONFIGURATION -- #
+spring:
+  application:
+    name: config-server
+  jmx:
+    default-domain: ${spring.application.name}
+  # --GITHUB CONFIGURATION -- #
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/sumitchouksey/configurations.git
+  profiles:
+    active: git # activate git profile
+endpoints:
+  jmx:
+    domain: ${spring.jmx.default-domain}
+server:
+  port: 3172

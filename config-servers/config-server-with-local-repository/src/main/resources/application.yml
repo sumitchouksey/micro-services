@@ -1,0 +1,21 @@
+# -- BASIC CONFIGURATION -- #
+spring:
+  application:
+    name: config-server
+  jmx:
+    default-domain: ${spring.application.name}
+  # --GITHUB CONFIGURATION -- #
+  cloud:
+    config:
+      server:
+        native:
+          # Path to configuration directory
+          # Change it accordingly
+          search-locations: /d01/micro-services/configurations
+  profiles:
+    active: native # activate local profile
+endpoints:
+  jmx:
+    domain: ${spring.jmx.default-domain}
+server:
+  port: 3172

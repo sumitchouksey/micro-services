@@ -1,0 +1,23 @@
+# -- BASIC CONFIGURATION -- #
+spring:
+  application:
+    name: discovery-server
+  jmx:
+    default-domain: ${spring.application.name}
+endpoints:
+  jmx:
+    domain: ${spring.jmx.default-domain}
+server:
+  port: 3171
+# -- EUREKA CONFIGURATION -- #
+eureka:
+  instance:
+    hostname: 0.0.0.0
+  server:
+    enable-self-preservation: false
+  client:
+    # Since It is Discovery Server So we do not want this server to get self registered.
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

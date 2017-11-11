@@ -1,0 +1,11 @@
+# -- BASIC CONFIGURATION -- #
+spring:
+  application:
+    name: identity-provider
+  jmx:
+    default-domain: ${spring.application.name}
+endpoints:
+  jmx:
+    domain: ${spring.jmx.default-domain}
+server:
+  port: 4343

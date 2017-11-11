@@ -1,0 +1,24 @@
+# -- BASIC CONFIGURATION -- #
+spring:
+  application:
+    name: config-server
+  jmx:
+    default-domain: ${spring.application.name}
+  # --GITHUB CONFIGURATION -- #
+  cloud:
+    config:
+      server:
+        svn:
+          # SVN configuration details
+          # Change it accordingly
+          uri: svn Url for configurations
+          username: svn userName
+          password: svn password
+          default-label: trunk
+  profiles:
+    active: subversion # activate svn profile
+endpoints:
+  jmx:
+    domain: ${spring.jmx.default-domain}
+server:
+  port: 3172
