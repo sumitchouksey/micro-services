@@ -18,7 +18,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/sumitchouksey/configurations.git
+          uri: https://gitlab.com/sumitchouksey/configurations.git
+          username: sumitchouksey2315@gmail.com
+          password: Shruti@300492
   profiles:
     active: git # activate git profile
 endpoints:
