@@ -4,7 +4,16 @@ spring:
     name: config-server
   jmx:
     default-domain: ${spring.application.name}
-  # --GITHUB CONFIGURATION -- #
+  # -- RABBIT MQ SERVER CONFIGURATION -- #
+  # FOR SPRING CLOUD BUS - This configuration is only required to if RABBITMQ server is running on some different server
+  #  If services are running on the same server where RABBITMQ server is running , there is no need to provide such configurations
+  rabbitmq:
+    host: 103.211.217.170
+    username: sumitchouksey2315@gmail.com
+    password: Shruti@300492
+    port: 5672
+
+  # --SVN CONFIGURATION -- #
   cloud:
     config:
       server:
@@ -17,6 +26,7 @@ spring:
           default-label: trunk
   profiles:
     active: subversion # activate svn profile
+
 endpoints:
   jmx:
     domain: ${spring.jmx.default-domain}

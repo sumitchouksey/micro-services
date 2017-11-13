@@ -1,4 +1,4 @@
-package com.schouksey.oauth.custom.config;/*
+package com.schouksey.oauth.security.custom.config;/*
  * Application    : micro-services
  * Package Name   : com.schouksey.oauth.custom.config
  * Class Name     : CustomOAuth2ExceptionSerializer

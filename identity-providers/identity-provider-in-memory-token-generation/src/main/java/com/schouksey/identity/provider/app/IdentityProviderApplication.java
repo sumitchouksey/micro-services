@@ -17,13 +17,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @SpringBootApplication
 // Scanning of External Packages always Required
 @ComponentScan(value = {
+        "com.schouksey.oauth.security.config",
+        "com.schouksey.oauth.security.custom.config",
         "com.schouksey.identity.provider.controllers",
         "com.schouksey.identity.provider.datasource.config",
         "com.schouksey.identity.provider.service",
         "com.schouksey.identity.provider.repository",
-        "com.schouksey.identity.provider.utility",
-        "com.schouksey.oauth.config",
-        "com.schouksey.oauth.custom.config",
+        "com.schouksey.identity.provider.utility"
+        ,
 })
 // Enable Resource Server to validate tokens and get session details via token
 @EnableResourceServer

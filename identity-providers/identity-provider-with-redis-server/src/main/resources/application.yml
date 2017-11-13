@@ -1,0 +1,17 @@
+# -- BASIC CONFIGURATION -- #
+spring:
+  application:
+    name: identity-provider
+  jmx:
+    default-domain: ${spring.application.name}
+  #-- REDIS SERVER CONFIGURATION --#
+  #-- REDIS CONFIGURATION CAN ALSO BE PROVIDED VIA CONFIG SERVER
+  redis:
+    password: 10455f7b34707284e3fb4c83a91595af71d8477bf9e4f69a8b336f2aa47d938619da4743d93d4668ee7ccf6c561f409c7d9b5d8343a17d5bf1bd8aad8fdbd8fc
+    host: 10.90.21.22
+    port: 6380
+endpoints:
+  jmx:
+    domain: ${spring.jmx.default-domain}
+server:
+  port: 4343

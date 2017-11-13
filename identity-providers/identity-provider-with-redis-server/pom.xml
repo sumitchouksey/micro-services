@@ -8,17 +8,22 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>identity-provider-in-memory-token-generation</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>identity-provider-with-redis-server</artifactId>
     <name>identity-provider</name>
-    <description>Identity Provider - Generate InMemory Token</description>
-    <!--Add To handle Hibernate Static Model Generation-->
+    <description>Identity Provider - Token Storage at Redis Server</description>
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>5.2.10.Final</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- TO CONFIGURE REDIS SERVER
+                1. Store token in Redis Server along with session
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>

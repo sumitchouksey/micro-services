@@ -22,7 +22,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "roles")
-@EqualsAndHashCode
 public class RolesEntity implements BaseEntity{
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,7 +47,7 @@ public class RolesEntity implements BaseEntity{
     private ClientEntity clientEntity;
 
     @ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    @JoinTable(name="users_roles",
+    @JoinTable(name="user_role",
             joinColumns={@JoinColumn(name="roleId", referencedColumnName="roleId")},
             inverseJoinColumns={@JoinColumn(name="userId", referencedColumnName="userId")})
     private Set<UserEntity> userEntities;

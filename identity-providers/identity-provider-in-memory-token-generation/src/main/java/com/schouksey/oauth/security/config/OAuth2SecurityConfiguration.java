@@ -1,17 +1,18 @@
-package com.schouksey.oauth.config;/*
+package com.schouksey.oauth.security.config;/*
  * Application    : micro-services
  * Package Name   : com.schouksey.oauth.config
  * Class Name     : OAuth2SecurityConfiguration
  * Author         : SUMIT CHOUKSEY <sumitchouksey2315@gmail.com>
  * Created On     : 11/10/2017
- * Description    : TODO
+ * Description    : Oauth2 Configuration class
  */
 
 import com.schouksey.identity.provider.service.CustomClientDetailsService;
-import com.schouksey.oauth.custom.config.CustomAuthenticationProvider;
-import com.schouksey.oauth.custom.config.CustomOAuth2Exception;
+import com.schouksey.oauth.security.custom.config.CustomAuthenticationProvider;
+import com.schouksey.oauth.security.custom.config.CustomOAuth2Exception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -31,12 +32,13 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.security.Principal;
 import java.util.Map;
 
 @Controller
-public class OAuth2SecurityConfiguration
+public class OAuth2SecurityConfiguration extends WebMvcConfigurerAdapter
 {
     /**
      * @param user

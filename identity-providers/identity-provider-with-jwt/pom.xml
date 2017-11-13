@@ -8,17 +8,20 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>identity-provider-in-memory-token-generation</artifactId>
-    <packaging>jar</packaging>
     <name>identity-provider</name>
-    <description>Identity Provider - Generate InMemory Token</description>
-    <!--Add To handle Hibernate Static Model Generation-->
+    <description>Identity Provider - Token Generation using JWT</description>
+    <artifactId>identity-provider-with-jwt</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>5.2.10.Final</version>
             <scope>provided</scope>
+        </dependency>
+        <!--JWT Dependencies-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>

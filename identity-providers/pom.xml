@@ -12,6 +12,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>identity-provider-in-memory-token-generation</module>
+        <module>identity-provider-with-redis-server</module>
+        <module>identity-provider-with-jwt</module>
     </modules>
     <dependencies>
         <!--Spring Security Maven Artifacts-->

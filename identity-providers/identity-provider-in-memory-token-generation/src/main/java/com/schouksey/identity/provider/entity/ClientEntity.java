@@ -8,10 +8,7 @@ package com.schouksey.identity.provider.entity;/*
  */
 
 import com.schouksey.persistence.api.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -50,6 +47,6 @@ public class ClientEntity implements BaseEntity {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean isActive;
 
-    @OneToOne(mappedBy = "clientEntity")
+    @OneToMany(mappedBy = "clientEntity")
     private Set<RolesEntity> rolesEntitySet;
 }
