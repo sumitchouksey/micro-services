@@ -85,4 +85,16 @@
             </plugin>
         </plugins>
     </build>
+    <!--CUSTOMIZED JARS FOR SPRING REST API DEVELOPMENT-->
+    <!--FETCHING FROM GITHUB LOCATION-->
+    <repositories>
+        <repository>
+            <id>archives</id>
+            <url>https://github.com/sumitchouksey/utility-jars/raw/master/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

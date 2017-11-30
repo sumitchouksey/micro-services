@@ -34,17 +34,17 @@
         <dependency>
             <groupId>com.schouksey.archives</groupId>
             <artifactId>json-handler</artifactId>
-            <version>1.0</version>
+            <version>v1.0</version>
         </dependency>
         <dependency>
             <groupId>com.schouksey.archives</groupId>
             <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
+            <version>v1.0</version>
         </dependency>
         <dependency>
             <groupId>com.schouksey.archives</groupId>
             <artifactId>utility-api</artifactId>
-            <version>1.0</version>
+            <version>v1.0</version>
         </dependency>
         <!--SPRING CLOUD BUS MAVEN ARTIFACTS-->
         <dependency>
