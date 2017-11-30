@@ -1,4 +1,5 @@
-package com.schouksey.identity.provider.datasource.config;/*
+package com.schouksey.identity.provider.datasource.config;
+/*
  * Application    : micro-services
  * Package Name   : com.schouksey.identity.provider.datasource.config
  * Class Name     : DataSourceConfiguration
@@ -7,6 +8,9 @@ package com.schouksey.identity.provider.datasource.config;/*
  * Description    : This class is used to initialize the dataSource and provide run time configuration using config-server
  */
 
+
+import com.schouksey.identity.provider.datasource.config.util.DataSourceConfig;
+import com.schouksey.identity.provider.datasource.config.util.DataSourcePoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +25,13 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-public class DataSourceConfiguration {
+public class DataSourceConnectivity {
+
+    @Autowired
+    private DataSourceConfig dataSourceConfig;
+
+    @Autowired
+    private DataSourcePoolConfig dataSourcePoolConfig;
 
     /**
      * Initialize DataSource configuration
@@ -31,22 +41,20 @@ public class DataSourceConfiguration {
     @Bean("dataSource")
     DataSource dataSource()
     {
-       /* DataSource dataSource = null;
-        JndiTemplate jndi = new JndiTemplate();
-        try {
-            dataSource = (DataSource) jndi.lookup("java:comp/env/jdbc/dataSource");
-        } catch (NamingException e) {
-            //logger.error("NamingException for java:comp/env/jdbc/yourname", e);
-            e.printStackTrace();
-        }
-        return dataSource;*/
-        DriverManagerDataSource driverManagerDataSource;
+        DriverManagerDataSource driverManagerDataSource= new DriverManagerDataSource();
+        driverManagerDataSource.setDriverClassName(dataSourceConfig.getDriver());
+        driverManagerDataSource.setUrl(dataSourceConfig.getConnectionUrl());
+        driverManagerDataSource.setUsername(dataSourceConfig.getUserName());
+        driverManagerDataSource.setPassword(dataSourceConfig.getPassword());
+        driverManagerDataSource.setConnectionProperties(initializePoolProperties());
+        return driverManagerDataSource;
+        /*DriverManagerDataSource driverManagerDataSource;
         driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         driverManagerDataSource.setUrl("jdbc:mysql://localhost:2315/platform?zeroDateTimeBehavior=convertToNull");
         driverManagerDataSource.setUsername("root");
         driverManagerDataSource.setPassword("sumit@2017");
-        return driverManagerDataSource;
+        return driverManagerDataSource;*/
     }
 
     private Properties getHibernateProperties() {
@@ -100,4 +108,29 @@ public class DataSourceConfiguration {
     @Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
+    /**
+     * Initialize Tomcat Pool Properties
+     * @return Properties
+     *          - Return properties instance containing pool config of tomcat
+     */
+    protected Properties initializePoolProperties()
+    {
+        Properties properties  = new Properties();
+        properties.setProperty("type",dataSourcePoolConfig.getType());
+        properties.setProperty("factory",dataSourcePoolConfig.getFactory());
+        properties.setProperty("initialSize",String.valueOf(dataSourcePoolConfig.getInitialSize()));
+        properties.setProperty("maxWaitMillis",String.valueOf(dataSourcePoolConfig.getMaxWaitMillis()));
+        properties.setProperty("maxTotal",String.valueOf(dataSourcePoolConfig.getMaxTotal()));
+        properties.setProperty("maxIdle",String.valueOf(dataSourcePoolConfig.getMaxIdle()));
+        properties.setProperty("minIdle",String.valueOf(dataSourcePoolConfig.getMinIdle()));
+        properties.setProperty("removeAbandoned",String.valueOf(dataSourcePoolConfig.isRemoveAbandoned()));
+        properties.setProperty("removeAbandonedTimeout",String.valueOf(dataSourcePoolConfig.getRemoveAbandonedTimeout()));
+        properties.setProperty("validationQuery",dataSourcePoolConfig.getValidationQuery());
+        properties.setProperty("validationInterval",String.valueOf(dataSourcePoolConfig.getValidationInterval()));
+        properties.setProperty("testOnBorrow",String.valueOf(dataSourcePoolConfig.isTestOnBorrow()));
+        properties.setProperty("timeBetweenEvictionRunsMillis",String.valueOf(dataSourcePoolConfig.getTimeBetweenEvictionRunsMillis()));
+        properties.setProperty("minEvictableIdleTimeMillis",String.valueOf(dataSourcePoolConfig.getMinEvictableIdleTimeMillis()));
+        properties.setProperty("useSSL",String.valueOf(dataSourcePoolConfig.isUseSSL()));
+        return properties;
+    }
 }

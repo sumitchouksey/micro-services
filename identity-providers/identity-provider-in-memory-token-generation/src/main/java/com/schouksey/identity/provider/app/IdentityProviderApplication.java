@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
@@ -21,13 +22,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
         "com.schouksey.oauth.security.custom.config",
         "com.schouksey.identity.provider.controllers",
         "com.schouksey.identity.provider.datasource.config",
+        "com.schouksey.identity.provider.datasource.config.util",
         "com.schouksey.identity.provider.service",
         "com.schouksey.identity.provider.repository",
         "com.schouksey.identity.provider.utility"
-        ,
 })
 // Enable Resource Server to validate tokens and get session details via token
 @EnableResourceServer
+//Enable Eureka Client
+@EnableEurekaClient
 public class IdentityProviderApplication extends SpringBootServletInitializer{
 
     /**

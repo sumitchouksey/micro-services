@@ -46,6 +46,21 @@
             <artifactId>utility-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <!--SPRING CLOUD BUS MAVEN ARTIFACTS-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+        <!--SPRING CLOUD EURAKA MAVEN ARTIFACTS-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka-server</artifactId>
+        </dependency>
+        <!--SPRING CLOUD CONFIG CLIENT MAVEN ARTIFACTS-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
