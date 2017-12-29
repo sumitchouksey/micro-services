@@ -14,6 +14,8 @@ import com.schouksey.identity.provider.entity.ClientEntity;
 import com.schouksey.identity.provider.repository.IdentityProviderRepository;
 import com.schouksey.identity.provider.utility.ResponseConstant;
 import com.schouksey.oauth.security.custom.config.CustomOAuth2Exception;
+import com.schouksey.oauth.security.utility.OAuth2ConfigProcessor;
+import com.schouksey.oauth.security.utility.OAuth2Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -33,6 +35,9 @@ public class CustomClientDetailsService implements ClientDetailsService{
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private OAuth2ConfigProcessor oAuth2ConfigProcessor;
+
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
         if(clientId==null)
@@ -43,25 +48,27 @@ public class CustomClientDetailsService implements ClientDetailsService{
         if(clientEntity==null)
             throw CustomOAuth2Exception.getCustomOAuth2Exception(ResponseConstant.CLIENT_NOT_FOUND.getStatus(),"404","Not Found");
 
-        BaseClientDetails baseClientDetails  = new BaseClientDetails();
-        baseClientDetails.setClientId(clientId);
         String configurations  = clientEntity.getConfiguration();
-        JsonNode jsonNode;
         if(configurations!=null){
+            JsonNode jsonNode;
             try{
                 jsonNode = objectMapper.readTree(configurations);
                 if(jsonNode!=null){
-                   JsonNode oauthNode = jsonNode.get("oauthConfig");
-                   baseClientDetails.setClientId(clientId);
-                   baseClientDetails.setAccessTokenValiditySeconds(Integer.parseInt(oauthNode.get("accessTokenValiditySeconds").asText()));
-                   baseClientDetails.setRefreshTokenValiditySeconds(Integer.parseInt(oauthNode.get("refreshTokenValiditySeconds").asText()));
-                   baseClientDetails.setScope(Arrays.asList(oauthNode.get("scope").asText()));
-                   baseClientDetails.setAuthorizedGrantTypes(Arrays.asList("password","refresh_token","authorization_code"));
-                   return baseClientDetails;
+                    JsonNode oauthNode = jsonNode.get("oauthConfig");
+                    OAuth2Configuration oAuth2Configuration = oAuth2ConfigProcessor.getOAuth2Configuration(oauthNode.asText());
+                    if(oAuth2Configuration!=null){
+                        BaseClientDetails baseClientDetails  = new BaseClientDetails();
+                        baseClientDetails.setClientId(clientId);
+                        baseClientDetails.setAccessTokenValiditySeconds(oAuth2Configuration.getAccessTokenValiditySeconds());
+                        baseClientDetails.setRefreshTokenValiditySeconds(oAuth2Configuration.getRefreshTokenValiditySeconds());
+                        baseClientDetails.setScope(oAuth2Configuration.getScopes());
+                        baseClientDetails.setAuthorizedGrantTypes(oAuth2Configuration.getAuthorizedGrantType());
+                        return baseClientDetails;
+                    }
                 }
             }
             catch (Exception e){
-
+                e.printStackTrace();
             }
         }
         return null;

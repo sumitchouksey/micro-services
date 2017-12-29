@@ -25,7 +25,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
         "com.schouksey.identity.provider.datasource.config.util",
         "com.schouksey.identity.provider.service",
         "com.schouksey.identity.provider.repository",
-        "com.schouksey.identity.provider.utility"
+        "com.schouksey.identity.provider.utility",
+        "com.schouksey.oauth.security.utility"
 })
 // Enable Resource Server to validate tokens and get session details via token
 @EnableResourceServer
