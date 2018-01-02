@@ -7,9 +7,8 @@ package com.schouksey.identity.provider.service;
  * Created On     : 11/10/2017
  * Description    : Custom Client Detail Service
  */
-
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.schouksey.identity.provider.entity.ClientEntity;
 import com.schouksey.identity.provider.repository.IdentityProviderRepository;
 import com.schouksey.identity.provider.utility.ResponseConstant;
@@ -23,7 +22,6 @@ import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 
 
 @Service
@@ -50,12 +48,12 @@ public class CustomClientDetailsService implements ClientDetailsService{
 
         String configurations  = clientEntity.getConfiguration();
         if(configurations!=null){
-            JsonNode jsonNode;
+            ObjectNode objectNode;
             try{
-                jsonNode = objectMapper.readTree(configurations);
-                if(jsonNode!=null){
-                    JsonNode oauthNode = jsonNode.get("oauthConfig");
-                    OAuth2Configuration oAuth2Configuration = oAuth2ConfigProcessor.getOAuth2Configuration(oauthNode.asText());
+                objectNode = (ObjectNode) objectMapper.readTree(configurations);
+                if(objectNode!=null){
+                    ObjectNode oauthNode = (ObjectNode) objectNode.get("oauthConfig");
+                    OAuth2Configuration oAuth2Configuration = oAuth2ConfigProcessor.getOAuth2Configuration(oauthNode);
                     if(oAuth2Configuration!=null){
                         BaseClientDetails baseClientDetails  = new BaseClientDetails();
                         baseClientDetails.setClientId(clientId);

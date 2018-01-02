@@ -82,11 +82,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
             throw  CustomOAuth2Exception.getCustomOAuth2Exception(ResponseConstant.USER_IS_INACTIVE.getStatus(),"404","Not Found");
         if(userEntity.getAttempts()>5)
             throw  CustomOAuth2Exception.getCustomOAuth2Exception(ResponseConstant.ATTEMPT_LIMIT_EXCEEDED.getStatus(),"410","Failure");
-        /*if(!HmacEncryption.validateHmac(userEntity.getPasswordCreatedOn(),userEntity.getPassword(),password)) {
+        if(!HmacEncryption.validateHmac(userEntity.getPasswordCreatedOn(),userEntity.getPassword(),password)) {
             userEntity.setAttempts((userEntity.getAttempts()+1));
             identityProviderService.saveOrUpdateUserEntity(userEntity);
             throw CustomOAuth2Exception.getCustomOAuth2Exception(ResponseConstant.INVALID_PASSWORD.getStatus(), "410", "Unauthorized");
-        }*/
+        }
 
         ClientEntity clientEntity  = identityProviderService.getClientEntity(clientName);
         if(clientEntity!=null)
